@@ -136,7 +136,7 @@ class Scrapper:
                     if e.get_field() not in result.keys():
                         result[e.get_field()] = []
                     result[e.get_field()].extend(res[e.get_field()])
-                    result[e.get_field()] = list(set(result[e.get_field()])) 
+                    # result[e.get_field()] = list(set(result[e.get_field()])) 
                 result['errors'].append({
                     'url': res['url'],
                     'message' : res['error'] 
@@ -168,7 +168,7 @@ class Scrapper:
             self.browser = await p.chromium.launch() 
 
             try:
-                limit = limit if limit else len(self.domains)
+                limit = min(limit,len(self.domains)) if limit else len(self.domains)
 
                 routines = []
 

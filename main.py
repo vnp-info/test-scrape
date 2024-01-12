@@ -2,21 +2,21 @@ import time
 import asyncio
 from utils.scrapper import Scrapper
 from utils.file import read_csv
-from utils.extractor import PhoneExtractor
+from utils.extractor import PhoneExtractor,AddressExtractor
 
 async def main():
     try:
         start_time = time.perf_counter()
 
-        # domains = ['https://orchardstreetapparel.com/products/orchard-street-apparel-gift-card']
+        domains = ["https://vndtechs.com"]
 
-        domains = read_csv('data/good_websites.csv')
+        # domains = read_csv('data/good.csv')
 
-        extractors = [PhoneExtractor()]
+        extractors = [PhoneExtractor(),AddressExtractor()]
 
         obj = Scrapper(domains,extractors)
 
-        await obj.scrape()
+        await obj.scrape(limit=50)
 
         end_time = time.perf_counter()
         diff = end_time - start_time

@@ -1,6 +1,39 @@
 import asyncio
-import random
+import random,re,requests,json
 from utils.file import save_to_csv
+from collections import namedtuple
+from dataclasses import dataclass
+
+def fetch():
+    try:
+        ans = []
+        for i in range(10**4):
+            print(i)
+            pad = 6 - len(str(i))
+            code = "0" * pad + str(i)
+        
+            url = f'https://api.zipcodestack.com/v1/search'
+            params = {
+                'codes' : code,
+                'apikey': "01HKYH4E0NV3VBP25W5HG04ZD0"
+            }
+
+            data = requests.get(url=url,params=params)
+            ans.append(data.json())
+
+        with open("pincode_1.json","w") as f:
+            json.dump(ans,f,indent=4)
+    except Exception as e:
+        print(e)
+
+
+fetch()
+
+
+
+
+
+# obj.name = 'asdf'
 
 # # sem = asyncio.Semaphore()
 
@@ -34,5 +67,3 @@ from utils.file import save_to_csv
 #     print('done',await obj.get())
 
 # asyncio.run(main())
-
-save_to_csv('test.json')

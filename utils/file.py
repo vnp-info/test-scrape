@@ -20,6 +20,9 @@ def save_to_csv(json_file,csv_file = 'test.csv'):
 
             for d in data:
                 if not d.keys(): continue
+                if 'phone' not in d.keys():
+                    csv_writer.writerow([d['home_url'],''])
+                    continue
                 for p in d['phone']:
                     csv_writer.writerow([d['home_url'],p])
 
